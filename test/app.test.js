@@ -60,33 +60,35 @@ describe('app', () => {
         });
       });
   });
-});
-
-it('has a verify route', () => {
-  return User
-    .create({
-      email: 'user1@email.com', password: 'userpass', zipcode: '97101', tags: ['organic', 'dairy-free'] 
-    })
-    .then(() => {
-      return request(app)
-        .post('/auth/signin')
-        .send({ email: 'user1@email.com', password: 'userpass', zipcode: '97101', tags: ['organic', 'dairy-free'] 
-        })
-        .then(res => res.body.token);
-    })
-    .then(token => {
-      return request(app)
-        .get('/auth/verify')
-        .set('Authorization', `Bearer ${token}`);
-    })
-    .then(res => {
-      expect(res.body).toEqual({
-        user: {
+  it('has a verify route', () => {
+    return User
+      .create({
+        email: 'user1@email.com', password: 'userpass', zipcode: '97101', tags: ['organic', 'dairy-free'] 
+      })
+      .then(() => {
+        return request(app)
+          .post('/auth/signin')
+          .send({ email: 'user1@email.com', password: 'userpass', zipcode: '97101', tags: ['organic', 'dairy-free'] 
+          })
+          .then(res => res.body.token);
+      })
+      .then(token => {
+        return request(app)
+          .get('/auth/verify')
+          .set('Authorization', `Bearer ${token}`);
+      })
+      .then(res => {
+        console.log('User', res.body);
+        expect(res.body).toEqual({
+       
           _id: expect.any(String),
-          email: 'user@email.com',
+          email: 'user1@email.com',
           zipcode: '97101',
           tags: ['organic', 'dairy-free']
-        }
+         
+        });
       });
-    });
+  });
 });
+
+

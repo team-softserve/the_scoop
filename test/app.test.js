@@ -61,6 +61,7 @@ describe('app', () => {
       });
   });
 });
+
 it('has a verify route', () => {
   return User
     .create({

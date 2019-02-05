@@ -12,7 +12,7 @@
     "pretest": "npm run lint",
     "start": "nodemon server.js",
     "test": "jest",
-    "test:watch": "jest --watch --runInBand"
+    "test:watch": "jest --watch --runInBand --verbose"
   },
   "repository": {
     "type": "git",

@@ -22,14 +22,14 @@ describe('app', () => {
   it('can /signup a user', () => {
     return request(app)
       .post('/auth/signup')
-      .send({ username: 'user1', password: 'password', zipcode: '97101', keywords: ['dairy-free', 'organic'] })
+      .send({ email: 'user@email.com', password: 'password', zipcode: '97101', tags: ['dairy-free', 'organic'] })
       .then(res => {
         expect(res.body).toEqual({
           user: {
             _id: expect.any(String),
-            username: 'user1',
+            email: 'user@email.com',
             zipcode: '97101',
-            keywords: ['dairy-free', 'organic']
+            tags: ['dairy-free', 'organic']
           },
           token: expect.any(String)
         });
@@ -39,26 +39,26 @@ describe('app', () => {
   it('can let user to signin', () => {
     return User
       .create({
-        username: 'user1', password: 'userpass', zipcode: '97101'
+        email: 'user@email.com', password: 'userpass', zipcode: '97101', tags: ['organic', 'dairy-free']
       })
       .then(() => {
         return request(app)
           .post('/auth/signin')
           .send({
-            username: 'user1', password: 'userpass', zipcode: '97101' });
+            email: 'user@email.com', password: 'userpass', zipcode: '97101', tags: ['organic', 'dairy-free']
+          });
       })
       .then(res => {
+        console.log('!!!!!', typeof res.body.token);
         expect(res.body).toEqual({
           user: {
             _id: expect.any(String),
-            username: 'user1',
-            zipcode: '97101'
+            email: 'user@email.com',
+            zipcode: '97101',
+            tags: ['organic', 'dairy-free']
           },
           token: expect.any(String)
         });
       });
   });
-
 });
-
-

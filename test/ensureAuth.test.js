@@ -16,13 +16,13 @@ describe('ensureAuth', () => {
   });
 
   it('can ensure auth', () => {
-    const token = tokenize({ username: 'user1' });
+    const token = tokenize({ email: 'user1' });
     const req = { token };
     const next = jest.fn();
 
     ensureAuth(req, {}, next)
       .then(() => {
-        expect(req.user).toEqual({ username: 'user1' });
+        expect(req.user).toEqual({ email: 'user1' });
         expect(next).toHaveBeenCalled();
       });
   });

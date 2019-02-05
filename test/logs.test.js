@@ -35,7 +35,7 @@ describe('logs', () => {
   
   it('validates a good model', () => {
     return User.create({
-      username: 'test',
+      email: 'test',
       password: '234'
     })
       .then(createdUser => {

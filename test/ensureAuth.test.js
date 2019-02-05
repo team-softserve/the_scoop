@@ -3,7 +3,7 @@ const { bearerToken, ensureAuth } = require('../lib/middleware/ensureAuth');
 const { tokenize } = require('../lib/utils/token');
 
 describe('ensureAuth', () => {
-  it.only('can get a bearer token', () => {
+  it('can get a bearer token', () => {
     const req = {
       get: () => 'Bearer wxyz1234'
     };
@@ -16,14 +16,14 @@ describe('ensureAuth', () => {
   });
 
   it('can ensure auth', () => {
-    const token = tokenize({ email: 'user@email.com' });
+    const token = tokenize({ username: 'user1' });
     const req = { token };
     const next = jest.fn();
 
     ensureAuth(req, {}, next)
       .then(() => {
-        expect(req.user).toEqual({ email: 'user@email.com' });
-        expect(next).toHaveBeenCalled(1);
+        expect(req.user).toEqual({ username: 'user1' });
+        expect(next).toHaveBeenCalled();
       });
   });
 });

@@ -3,7 +3,7 @@ const connect = require('../lib/utils/connect');
 
 const request = require('supertest');
 const mongoose = require('mongoose');
-// const User = require('../lib/models/User');
+const User = require('../lib/models/User');
 const app = require('../lib/app');
 
 describe('app', () => {
@@ -22,17 +22,43 @@ describe('app', () => {
   it('can /signup a user', () => {
     return request(app)
       .post('/auth/signup')
-      .send({ email: 'test@email.com', password: 'password' })
+      .send({ username: 'user1', password: 'password', zipcode: '97101', keywords: ['dairy-free', 'organic'] })
       .then(res => {
         expect(res.body).toEqual({
           user: {
             _id: expect.any(String),
-            email: 'test@email.com'
+            username: 'user1',
+            zipcode: '97101',
+            keywords: ['dairy-free', 'organic']
           },
           token: expect.any(String)
         });
       });
   });
+
+  it('can let user to signin', () => {
+    return User
+      .create({
+        username: 'user1', password: 'userpass', zipcode: '97101'
+      })
+      .then(() => {
+        return request(app)
+          .post('/auth/signin')
+          .send({
+            username: 'user1', password: 'userpass', zipcode: '97101' });
+      })
+      .then(res => {
+        expect(res.body).toEqual({
+          user: {
+            _id: expect.any(String),
+            username: 'user1',
+            zipcode: '97101'
+          },
+          token: expect.any(String)
+        });
+      });
+  });
+
 });
 
 

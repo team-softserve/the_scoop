@@ -6,6 +6,9 @@ const mongoose = require('mongoose');
 const Log = require('../../lib/models/Log');
 const { Types } = require('mongoose');
 
+// describe.skip('log model', () => {
+//   it('validates a good model', () => {
+//     const data = {
 const createLog = (log) => {
   return request(app)
     .post('/logs')

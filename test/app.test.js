@@ -22,17 +22,20 @@ describe('app', () => {
   it('can /signup a user', () => {
     return request(app)
       .post('/auth/signup')
-      .send({ email: 'test@email.com', password: 'password' })
+      .send({ username: 'user1', password: 'password', zipcode: '97101', keywords: ['dairy-free', 'organic'] })
       .then(res => {
         expect(res.body).toEqual({
           user: {
             _id: expect.any(String),
-            email: 'test@email.com'
+            username: 'user1',
+            zipcode: '97101',
+            keywords: ['dairy-free', 'organic']
           },
           token: expect.any(String)
         });
       });
   });
+
 });
 
 

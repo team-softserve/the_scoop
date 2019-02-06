@@ -1,9 +1,7 @@
 require('dotenv').config();
-require('../lib/utils/connect')();
-const request = require('supertest');
-const app = require('../lib/app');
+require('../../lib/utils/connect')();
 const mongoose = require('mongoose');
-const Log = require('../lib/models/Log');
+const Log = require('../../lib/models/Log');
 const { Types } = require('mongoose');
 
 describe.only('Log Tests', () => {
@@ -23,15 +21,16 @@ describe.only('Log Tests', () => {
       place_id: '1234', 
       name: 'Portland Creamery', 
       user: Types.ObjectId(), 
-      rating: { price: 4,  vibe: 4,  flavor: 5  }, 
+      rating: { price: 4, vibe: 4, flavor: 5 }, 
       tags: ['organic', 'dairy-free'], 
-      price: 3 });
-      console.log('log model', log);
+      price: 3 
+    });
+    console.log('log model', log);
     expect(log.toJSON()).toEqual({
       place_id: '1234', 
       name: 'Portland Creamery', 
-      user: Types.ObjectId(), 
-      rating: { price: 4, vibe: 4, flavor: 5 }, 
+      user: expect.any(Types.ObjectId), 
+      rating: { price: 4, vibe: 4, flavor: 5 },
       tags: ['organic', 'dairy-free'], 
       price: 3,
       _id: expect.any(Types.ObjectId) 

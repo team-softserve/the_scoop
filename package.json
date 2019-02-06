@@ -18,7 +18,7 @@
     "type": "git",
     "url": "git+https://github.com/team-softserve/the_scoop.git"
   },
-  "keywords": [],
+  "keywords": ["heroku"],
   "author": "",
   "license": "ISC",
   "bugs": {

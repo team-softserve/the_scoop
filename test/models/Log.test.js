@@ -1,4 +1,4 @@
-git require('dotenv').config();
+require('dotenv').config();
 require('../../lib/utils/connect')();
 const mongoose = require('mongoose');
 const Log = require('../../lib/models/Log');

@@ -1,20 +1,20 @@
-//add mock data const { getUsers, getToken, getLogs }
+const { getUsers, getToken, getLogs, getLog } = require('../utils/mockData');
 const request = require('supertest');
 const app = require('../../lib/app');
 
 describe('Logs tests', () => {
-  it('creates a log', () => {
+  it.only('creates a log', () => {
     const createdUsers = getUsers();
     return request(app)
-      .post('')
+      .post('/logs')
       .set('Authorization', `Bearer ${getToken()}`)
-      .send({ place_id: '1234', name: 'Cold Stone Creamery', tags:['dairy- free', 'organic'] })
+      .send({ place_id: '1234', name: 'Cold Stone Creamery', user: createdUsers[0]._id, tags:['dairy- free', 'organic'] })
       .then(res => {
         expect(res.body).toEqual({
           _id: expect.any(String),
           place_id: expect.any(String),
           name: expect.any(String),
-          user: createdUsers[0]._id.toString(),
+          user: createdUsers[0]._id,
           rating: expect.any(Number),
           tags: expect.any(String),
           price: expect.any(Number)
@@ -94,10 +94,17 @@ describe('Logs tests', () => {
           Promise.resolve(log._id),
           request(app)
             .delete(`/logs/${log._id}`)
+            .set('Authorization', `Bearer ${getToken()}`)
         ]);
       })
-      .then(([log, res]) => {
+      .then(([_id, res]) => {
         expect(res.body).toEqual({ deleted: 1 });
+        return request(app)
+          .get(`/logs/${_id}`)
+          .set('Authorization', `Bearer ${getToken()}`);
+      })
+      .then(res => {
+        expect(res.status).toEqual(404);
       });
   });
 });

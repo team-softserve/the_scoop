@@ -1,7 +1,7 @@
-const { getLocation, getPlaces } = require('../../lib/utils/__mocks__/google-map');
-jest.mock('../../lib/utils/__mocks__/google-map');
+const { getLocation, getPlaces } = require('../../lib/utils/__mocks__/google_map');
+jest.mock('../../lib/utils/__mocks__/google_map');
 
-describe('google map integration', () => {
+describe.skip('google map integration', () => {
   describe('google location integration', () => {
 
     it('retrieves lat, lng from zipcode', () => {

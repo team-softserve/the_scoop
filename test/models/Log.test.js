@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const Log = require('../../lib/models/Log');
 const { Types } = require('mongoose');
 
-describe.only('Log Tests', () => {
+describe.skip('Log Tests', () => {
 
   beforeEach(done => {
     return mongoose.connection.dropDatabase(() => {

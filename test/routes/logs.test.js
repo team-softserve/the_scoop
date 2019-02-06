@@ -87,4 +87,17 @@ describe('Logs tests', () => {
       });
   });
 
+  it('deletes a log', () => {
+    return getLog()
+      .then(log => {
+        return Promise.all([
+          Promise.resolve(log._id),
+          request(app)
+            .delete(`/logs/${log._id}`)
+        ]);
+      })
+      .then(([log, res]) => {
+        expect(res.body).toEqual({ deleted: 1 });
+      });
+  });
 });

@@ -62,4 +62,29 @@ describe('Logs tests', () => {
       });
   });
 
+  it('updates a log by id', () => {
+    const createdUsers = getUsers();
+    return getLog()
+      .then(log => {
+        return request(app)
+          .put(`/logs/${log._id}`)
+          .set('Authorization', `Bearer ${getToken()}`)
+          .send({
+            rating: { flavor: 5 }
+          });
+      })
+      .then(res => {
+        expect(res.body).toEqual({
+          _id: expect.any(String),
+          place_id: expect.any(String),
+          name: expect.any(String),
+          user: createdUsers[0]._id.toString(),
+          rating: { flavor: 5 },
+          tags: expect.any(String),
+          price: expect.any(Number),
+          __v:0
+        });
+      });
+  });
+
 });

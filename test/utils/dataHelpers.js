@@ -28,12 +28,12 @@ beforeEach(() => {
         .post('/auth/signin')
         .send({
           email: user.email,
-          password: 'password',
-          zipcode: '97101'
+          password: 'passsword'
         });
     })
     .then(res => {
       token = res.body.token;
+      console.log('Token here: ', token);
     });
 });
 afterAll(done => {

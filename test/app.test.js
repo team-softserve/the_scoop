@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 const User = require('../lib/models/User');
 const app = require('../lib/app');
 
-describe.skip('app', () => {
+describe('app', () => {
   beforeAll(() => { 
     connect();
   });
@@ -38,13 +38,13 @@ describe.skip('app', () => {
   it('can let user to signin', () => {
     return User
       .create({
-        email: 'user@email.com', password: 'userpass', zipcode: '97101', tags: ['organic', 'dairy-free']
+        email: 'user@email.com', password: 'password', zipcode: '97101', tags: ['organic', 'dairy-free']
       })
       .then(() => {
         return request(app)
           .post('/auth/signin')
           .send({
-            email: 'user@email.com', password: 'userpass', zipcode: '97101', tags: ['organic', 'dairy-free']
+            email: 'user@email.com', password: 'password'
           });
       })
       .then(res => {

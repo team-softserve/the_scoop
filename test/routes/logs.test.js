@@ -1,4 +1,4 @@
-const { getUsers, getToken, getLogs, getLog } = require('../utils/mockData');
+const { getUsers, getToken, getLogs, getLog } = require('../../test/utils/dataHelpers');
 const request = require('supertest');
 const app = require('../../lib/app');
 const mongoose = require('mongoose');

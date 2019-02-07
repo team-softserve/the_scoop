@@ -30,7 +30,7 @@ describe('Logs tests', () => {
           });
       });
   });
-  it('gets all logs', () => {
+  it.only('gets all logs', () => {
     return request(app)
       .get('/logs')
       .then(res => {
@@ -40,7 +40,12 @@ describe('Logs tests', () => {
         ]);
       })
       .then(([body, logs]) => {
+        console.log('!! has token', body);
         expect(body).toHaveLength(logs.length);
+        logs.forEach(log => {
+          delete log.__v;
+          expect(body).toContainEqual({ ...log, user: { _id: log.user } });
+        });
       });
   });
   

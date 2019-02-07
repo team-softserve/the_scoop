@@ -16,10 +16,10 @@ module.exports = ({ totalUsers = DEFAULT_TOTAL_USERS, totalLogs = DEFAULT_TOTAL_
           return Log.create({
             place_id: chance.string(users),
             name: chance.string(users),
-            user: chance.object(users),
+            user: chance.pickone(users),
             rating: chance.string(users),
             tags: chance.string(users),
-            price: chance.string(users)
+            price: chance.integer(users)
           });
         })
       );

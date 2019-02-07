@@ -1,22 +1,36 @@
 const { getUsers, getToken, getLogs, getLog } = require('../utils/mockData');
 const request = require('supertest');
 const app = require('../../lib/app');
+const mongoose = require('mongoose');
+const connect = require('../../lib/utils/connect');
 
 describe('Logs tests', () => {
+  beforeAll(() => { 
+    connect();
+  });
+  
+  beforeEach(done => {
+    mongoose.connection.dropDatabase(done);
+  });
+  
+  afterAll(done => {
+    mongoose.connection.close(done);
+  });
+
   it.only('creates a log', () => {
     const createdUsers = getUsers();
     return request(app)
       .post('/logs')
       .set('Authorization', `Bearer ${getToken()}`)
-      .send({ place_id: '1234', name: 'Cold Stone Creamery', user: createdUsers[0]._id, tags:['dairy- free', 'organic'] })
+      .send({ place_id: '1234', name: 'Cold Stone Creamery', user: createdUsers[0]._id, tags:['dairy-free', 'organic'] })
       .then(res => {
         expect(res.body).toEqual({
           _id: expect.any(String),
           place_id: expect.any(String),
           name: expect.any(String),
           user: createdUsers[0]._id,
-          rating: expect.any(Number),
-          tags: expect.any(String),
+          rating: expect.any(Object),
+          tags: expect.any([String]),
           price: expect.any(Number)
         });
       });

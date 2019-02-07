@@ -74,6 +74,7 @@ describe('Logs tests', () => {
           
       })
       .then(res => {
+        console.log('!!!!!!', res.body);
         expect(res.body).toEqual({
           _id: expect.any(String),
           place_id: expect.any(String),

@@ -21,8 +21,9 @@ beforeEach(() => {
 
 let token;
 beforeEach(() => {
-  return User.findOne({ email: 'user1@email.com' })
+  return User.findOne({ email: 'seed1@test.com' })
     .then(user => {
+      console.log('===>', user);
       return request(app)
         .post('/auth/signin')
         .send({

@@ -14,12 +14,16 @@ module.exports = ({ totalUsers = DEFAULT_TOTAL_USERS, totalLogs = DEFAULT_TOTAL_
       return Promise.all(
         [...Array(totalLogs)].map(() => {
           return Log.create({
-            place_id: chance.string(users),
-            name: chance.string(users),
-            user: chance.pickone(users),
-            rating: chance.string(users),
-            tags: chance.string(users),
-            price: chance.integer(users)
+            place_id: chance.string(),
+            name: chance.name(),
+            user: chance.pickone(users)._id,
+            rating: { 
+              price: chance.integer({ min: 1, max: 5 }),
+              vibe: chance.integer({ min: 1, max: 5 }),
+              flavor: chance.integer({ min: 1, max: 5 }),
+            },
+            tags: chance.name(),
+            price: chance.integer({ min: 0, max: 3 })
           });
         })
       );

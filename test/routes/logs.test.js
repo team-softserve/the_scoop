@@ -30,26 +30,16 @@ describe('Logs tests', () => {
           });
       });
   });
-  it.only('gets all logs', () => {
+  it('gets all logs', () => {
     return request(app)
       .get('/logs')
+      .set('Authorization', `Bearer ${getToken()}`)
       .then(res => {
-        return Promise.all([
-          Promise.resolve(res.body),
-          getLogs()
-        ]);
-      })
-      .then(([body, logs]) => {
-        console.log('!! has token', body);
-        expect(body).toHaveLength(logs.length);
-        logs.forEach(log => {
-          delete log.__v;
-          expect(body).toContainEqual({ ...log, user: { _id: log.user } });
-        });
+        expect(res.body).toHaveLength(10);
       });
   });
   
-  it('gets a log by id', () => {
+  it.only('gets a log by id', () => {
     const createdUsers = getUsers();
     return getLog()
       .then(log => {

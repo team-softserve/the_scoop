@@ -1,34 +1,43 @@
-const { getUsers, getToken, getLogs, getLog } = require('../../test/utils/dataHelpers');
+const { getUsers, getUser, getToken, getLogs, getLog } = require('../../test/utils/dataHelpers');
 const request = require('supertest');
 const app = require('../../lib/app');
-const mongoose = require('mongoose');
-const connect = require('../../lib/utils/connect');
+// const mongoose = require('mongoose');
+// const connect = require('../../lib/utils/connect');
 
 describe('Logs tests', () => {
-  beforeAll(() => { 
-    connect();
-  });
+  // beforeAll(() => { 
+  //   connect();
+  // });
+
   
-  beforeEach(done => {
-    mongoose.connection.dropDatabase(done);
-  });
+  // beforeEach(done => {
+  //   mongoose.connection.dropDatabase(done);
+  // });
   
-  afterAll(done => {
-    mongoose.connection.close(done);
-  });
+  // afterAll(done => {
+  //   mongoose.connection.close(done);
+  // });
 
   it.only('creates a log', () => {
-    const createdUsers = getUsers();
+    const createdUser = getUser();
+    // console.log('createdUsers ==>', createdUser);
     return request(app)
       .post('/logs')
       .set('Authorization', `Bearer ${getToken()}`)
-      .send({ place_id: '1234', name: 'Cold Stone Creamery', user: createdUsers[0]._id, tags:['dairy-free', 'organic'] })
+      .send({ 
+        place_id: '1234', 
+        name: 'Cold Stone Creamery', 
+        user: createdUser[0]._id, 
+        tags:['dairy-free', 'organic'] 
+      })
       .then(res => {
+        console.log('body =>', res.body);
         expect(res.body).toEqual({
           _id: expect.any(String),
           place_id: expect.any(String),
           name: expect.any(String),
-          user: createdUsers[0]._id,
+          // user: createdUser[0]._id,
+          user: expect.any(String),
           rating: expect.any(Object),
           tags: expect.any([String]),
           price: expect.any(Number)

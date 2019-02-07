@@ -1,6 +1,7 @@
 const { getUsers, getUser, getToken, getLogs, getLog } = require('../../test/utils/dataHelpers');
 const request = require('supertest');
 const app = require('../../lib/app');
+const { Types } = require('mongoose');
 
 describe('Logs tests', () => {
   it('creates a log', () => {
@@ -40,7 +41,6 @@ describe('Logs tests', () => {
   });
   
   it.only('gets a log by id', () => {
-    const createdUsers = getUsers();
     return getLog()
       .then(log => {
         return Promise.all([
@@ -52,13 +52,17 @@ describe('Logs tests', () => {
       })
       /* eslint-disable-next-line */
       .then(([log, res]) => {
+        console.log('Log type ===>', typeof log.rating);
+        console.log('log ==>', log);
+        console.log('user ==>', log.user);
+        console.log('user type ==>', typeof log.user);
         expect(res.body).toEqual({
           _id: expect.any(String),
           place_id: expect.any(String),
           name: expect.any(String),
-          user: createdUsers[0]._id.toString(),
-          rating: expect.any(Number),
-          tags: expect.any(String),
+          user: expect.any(Object),
+          rating: expect.any(Object),
+          tags: expect.any(Array),
           price: expect.any(Number)
         });
       });

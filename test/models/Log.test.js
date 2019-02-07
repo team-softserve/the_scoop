@@ -25,7 +25,6 @@ describe.skip('Log Tests', () => {
       tags: ['organic', 'dairy-free'], 
       price: 3 
     });
-    console.log('log model', log);
     expect(log.toJSON()).toEqual({
       place_id: '1234', 
       name: 'Portland Creamery', 

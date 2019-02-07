@@ -23,17 +23,15 @@ let token;
 beforeEach(() => {
   return User.findOne({ email: 'seed1@test.com' })
     .then(user => {
-      console.log('===>', user);
       return request(app)
         .post('/auth/signin')
         .send({
           email: user.email,
-          password: 'passsword'
+          password: 'password'
         });
     })
     .then(res => {
       token = res.body.token;
-      console.log('Token here: ', token);
     });
 });
 afterAll(done => {

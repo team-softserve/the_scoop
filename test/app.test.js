@@ -77,7 +77,6 @@ describe('app', () => {
           .set('Authorization', `Bearer ${token}`);
       })
       .then(res => {
-        console.log('User', res.body);
         expect(res.body).toEqual({
        
           _id: expect.any(String),

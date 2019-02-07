@@ -3,9 +3,7 @@ const request = require('supertest');
 const app = require('../../lib/app');
 
 describe('Logs tests', () => {
-  
-
-  it.only('creates a log', () => {
+  it('creates a log', () => {
     return getUser()
       .then(user => {
         return request(app)
@@ -14,19 +12,20 @@ describe('Logs tests', () => {
           .send({ 
             place_id: '1234', 
             name: 'Cold Stone Creamery', 
+            tags:['dairy-free', 'organic'],
+            price: 2,
+            rating: { price: 3, vibe: 3, flavor: 3 },
             user: user._id, 
-            tags:['dairy-free', 'organic'] 
           })
           .then(res => {
-            console.log('body =>', res.body);
             expect(res.body).toEqual({
+              place_id: '1234',
+              name: 'Cold Stone Creamery',
+              tags: ['dairy-free', 'organic'],
+              price: 2,
+              rating: { price: 3, vibe: 3, flavor: 3 },
               _id: expect.any(String),
-              place_id: expect.any(String),
-              name: expect.any(String),
-              user: expect.any(String),
-              rating: expect.any(Object),
-              tags: expect.any([String]),
-              price: expect.any(Number)
+              user: expect.any(String)
             });
           });
       });
@@ -49,7 +48,6 @@ describe('Logs tests', () => {
     const createdUsers = getUsers();
     return getLog()
       .then(log => {
-        console.log('Log', log);
         return Promise.all([
           Promise.resolve(log),
           request(app)
@@ -59,7 +57,6 @@ describe('Logs tests', () => {
       })
       /* eslint-disable-next-line */
       .then(([log, res]) => {
-        console.log('res', res.body);
         expect(res.body).toEqual({
           _id: expect.any(String),
           place_id: expect.any(String),

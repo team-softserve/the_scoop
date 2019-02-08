@@ -97,7 +97,6 @@ describe('Logs tests', () => {
             .set('Authorization', `Bearer ${getToken()}`)
         ]);
       })
-      
       .then(([log, res]) => {
         console.log('Log', log);
         expect(res.body).toEqual({ deleted: 1 });

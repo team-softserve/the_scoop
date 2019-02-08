@@ -10,7 +10,8 @@
   "scripts": {
     "lint": "eslint .",
     "pretest": "npm run lint",
-    "start": "nodemon server.js",
+    "start:watch": "nodemon server.js",
+    "start": "node server.js",
     "test": "jest --runInBand --verbose",
     "test:watch": "jest --watch --runInBand --verbose"
   },

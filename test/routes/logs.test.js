@@ -98,6 +98,7 @@ describe('Logs tests', () => {
         ]);
       })
       .then(([log, res]) => {
+        console.log('Log', log);
         expect(res.body).toEqual({ deleted: 1 });
   
       });

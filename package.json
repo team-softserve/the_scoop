@@ -10,9 +10,11 @@
   "scripts": {
     "lint": "eslint .",
     "pretest": "npm run lint",
-    "start": "nodemon server.js",
     "test": "jest --runInBand --verbose",
     "test:watch": "jest --watch --runInBand --verbose"
+    "start:watch": "nodemon server.js",
+    "start": "node server.js",
+    "seed": "node seed.js"
   },
   "repository": {
     "type": "git",

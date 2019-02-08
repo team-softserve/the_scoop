@@ -11,18 +11,23 @@
     "lint": "eslint .",
     "pretest": "npm run lint",
     "start": "nodemon server.js",
-    "test": "jest",
-    "test:watch": "jest --watch --runInBand"
+    "test": "jest --runInBand --verbose",
+    "test:watch": "jest --watch --runInBand --verbose"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/team-softserve/the_scoop.git"
   },
-  "keywords": [],
+  "keywords": [
+    "heroku"
+  ],
   "author": "",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/team-softserve/the_scoop/issues"
+  },
+  "jest": {
+    "testEnvironment": "node"
   },
   "homepage": "https://github.com/team-softserve/the_scoop#readme",
   "devDependencies": {

@@ -13,7 +13,8 @@
     "start:watch": "nodemon server.js",
     "start": "node server.js",
     "test": "jest --runInBand --verbose",
-    "test:watch": "jest --watch --runInBand --verbose"
+    "test:watch": "jest --watch --runInBand --verbose",
+    "seed": "node seed.js"
   },
   "repository": {
     "type": "git",

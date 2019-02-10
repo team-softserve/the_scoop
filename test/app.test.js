@@ -5,8 +5,8 @@ const mongoose = require('mongoose');
 const User = require('../lib/models/User');
 const app = require('../lib/app');
 
-describe.skip('app', () => {
-  beforeAll(() => { 
+describe('app', () => {
+  beforeAll(() => {
     connect();
   });
 
@@ -59,15 +59,16 @@ describe.skip('app', () => {
         });
       });
   });
+
   it('has a verify route', () => {
     return User
       .create({
-        email: 'user1@email.com', password: 'userpass', zipcode: '97101', tags: ['organic', 'dairy-free'] 
+        email: 'user1@email.com', password: 'userpass', zipcode: '97101', tags: ['organic', 'dairy-free']
       })
       .then(() => {
         return request(app)
           .post('/auth/signin')
-          .send({ email: 'user1@email.com', password: 'userpass', zipcode: '97101', tags: ['organic', 'dairy-free'] 
+          .send({ email: 'user1@email.com', password: 'userpass', zipcode: '97101', tags: ['organic', 'dairy-free']
           })
           .then(res => res.body.token);
       })
@@ -78,15 +79,11 @@ describe.skip('app', () => {
       })
       .then(res => {
         expect(res.body).toEqual({
-       
           _id: expect.any(String),
           email: 'user1@email.com',
           zipcode: '97101',
           tags: ['organic', 'dairy-free']
-         
         });
       });
   });
 });
-
-

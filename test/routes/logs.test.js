@@ -67,7 +67,6 @@ describe('Logs tests', () => {
   it('updates a log by id', () => {
     return getLog()
       .then(log => {
-        console.log('log', log);
         return request(app)
           .patch(`/logs/${log._id}`)
           .set('Authorization', `Bearer ${getToken()}`)

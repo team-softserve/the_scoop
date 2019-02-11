@@ -9,13 +9,13 @@ describe('Logs tests', () => {
         return request(app)
           .post('/logs')
           .set('Authorization', `Bearer ${getToken()}`)
-          .send({ 
-            place_id: '1234', 
-            name: 'Cold Stone Creamery', 
+          .send({
+            place_id: '1234',
+            name: 'Cold Stone Creamery',
             tags:['dairy-free', 'organic'],
             price: 2,
             rating: { price: 3, vibe: 3, flavor: 3 },
-            user: user._id, 
+            user: user._id,
           })
           .then(res => {
             expect(res.body).toEqual({
@@ -30,6 +30,7 @@ describe('Logs tests', () => {
           });
       });
   });
+
   it('gets all logs', () => {
     return request(app)
       .get('/logs')
@@ -50,7 +51,7 @@ describe('Logs tests', () => {
         ]);
       })
       /* eslint-disable-next-line */
-      .then(([log, res]) => {  
+      .then(([log, res]) => {
         expect(res.body).toEqual({
           _id: expect.any(String),
           place_id: expect.any(String),
@@ -66,15 +67,12 @@ describe('Logs tests', () => {
   it('updates a log by id', () => {
     return getLog()
       .then(log => {
-        console.log('log', log);
         return request(app)
           .patch(`/logs/${log._id}`)
           .set('Authorization', `Bearer ${getToken()}`)
-          .send({ name: log.name });
-          
+          .send({ name: log.name }); 
       })
       .then(res => {
-        console.log('!!!!!!', res.body);
         expect(res.body).toEqual({
           _id: expect.any(String),
           place_id: expect.any(String),
@@ -100,7 +98,6 @@ describe('Logs tests', () => {
       .then(([log, res]) => {
         console.log('Log', log);
         expect(res.body).toEqual({ deleted: 1 });
-  
       });
   });
 });
